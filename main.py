@@ -1,11 +1,12 @@
 # this allows us to use code from
 # the open-source pygame library
 # throughout this file
-import pygame
+import pygame, sys
 from constants import *
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from circleshape import CircleShape
 
 def main():
     pygame.init()
@@ -29,6 +30,11 @@ def main():
             if event.type == pygame.QUIT:
                 return
         updatable.update(dt)
+        for a in asteroids:
+            if CircleShape.if_collide(player, a):
+                print("Game over!")
+                sys.exit()
+        
         screen.fill("black")
         for d in drawable:
             d.draw(screen)
